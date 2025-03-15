@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flying_auto_services/models/user_model.dart';
 import 'package:flying_auto_services/providers/main_provider.dart';
+import 'package:flying_auto_services/screens/admin/services_management_screen.dart';
+import 'package:flying_auto_services/screens/admin/employees_management_screen.dart';
 import 'package:flying_auto_services/screens/auth/auth_page.dart';
+import 'package:flying_auto_services/screens/customer/customer_home_screen.dart';
+import 'package:flying_auto_services/screens/customer/customer_orders_screen.dart';
+import 'package:flying_auto_services/screens/employee/employee_service_requests_screen.dart';
 import 'package:flying_auto_services/screens/profile/profile_screen.dart';
 import 'package:flying_auto_services/utils/app_theme.dart';
 
@@ -112,15 +117,9 @@ class _MainNavigationPageState extends ConsumerState<MainNavigationPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(
-              Icons.calendar_today,
-              0,
-              mainProviderData,
-              'Bookings',
-            ),
+            _buildNavItem(Icons.receipt_long, 0, mainProviderData, 'Orders'),
             _buildNavItem(Icons.home, 1, mainProviderData, 'Home'),
-            _buildNavItem(Icons.car_repair, 2, mainProviderData, 'Services'),
-            _buildNavItem(Icons.person, 3, mainProviderData, 'Profile'),
+            _buildNavItem(Icons.person, 2, mainProviderData, 'Profile'),
           ],
         ),
       ),
@@ -161,7 +160,7 @@ class _MainNavigationPageState extends ConsumerState<MainNavigationPage> {
               mainProviderData,
               'Appointments',
             ),
-            _buildNavItem(Icons.car_repair, 1, mainProviderData, 'My Services'),
+            // _buildNavItem(Icons.car_repair, 1, mainProviderData, 'My Services'),
             _buildNavItem(Icons.person, 2, mainProviderData, 'Profile'),
           ],
         ),
@@ -197,8 +196,8 @@ class _MainNavigationPageState extends ConsumerState<MainNavigationPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(Icons.people, 0, mainProviderData, 'Users'),
-            _buildNavItem(Icons.car_repair, 1, mainProviderData, 'Services'),
+            _buildNavItem(Icons.car_repair, 0, mainProviderData, 'Services'),
+            _buildNavItem(Icons.people, 1, mainProviderData, 'Employees'),
             _buildNavItem(Icons.analytics, 2, mainProviderData, 'Analytics'),
             _buildNavItem(Icons.person, 3, mainProviderData, 'Profile'),
           ],
@@ -241,35 +240,33 @@ class _MainNavigationPageState extends ConsumerState<MainNavigationPage> {
       case UserRole.customer:
         switch (index) {
           case 0:
-            return const Center(child: Text('Bookings Coming Soon'));
+            return const CustomerOrdersScreen();
           case 1:
-            return const Center(child: Text('Home Coming Soon'));
+            return const CustomerHomeScreen();
           case 2:
-            return const Center(child: Text('Services Coming Soon'));
-          case 3:
             return const ProfileScreen();
           default:
-            return const Center(child: Text('Home Coming Soon'));
+            return const CustomerHomeScreen();
         }
 
       case UserRole.employee:
         switch (index) {
           case 0:
-            return const Center(child: Text('Appointments Coming Soon'));
+            return const EmployeeServiceRequestsScreen();
           case 1:
             return const Center(child: Text('My Services Coming Soon'));
           case 2:
             return const ProfileScreen();
           default:
-            return const Center(child: Text('Appointments Coming Soon'));
+            return const EmployeeServiceRequestsScreen();
         }
 
       case UserRole.admin:
         switch (index) {
           case 0:
-            return const Center(child: Text('Users Management Coming Soon'));
+            return const ServicesManagementScreen();
           case 1:
-            return const Center(child: Text('Services Management Coming Soon'));
+            return const EmployeesManagementScreen();
           case 2:
             return const Center(child: Text('Analytics Coming Soon'));
           case 3:

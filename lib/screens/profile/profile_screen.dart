@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flying_auto_services/models/user_model.dart';
 import 'package:flying_auto_services/providers/main_provider.dart';
 import 'package:flying_auto_services/utils/app_colors.dart';
+import 'package:flying_auto_services/widgets/custom_app_bar.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -17,11 +18,7 @@ class ProfileScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        backgroundColor: AppColor.primary,
-        foregroundColor: Colors.white,
-      ),
+      appBar: const CustomAppBar(showLogo: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -34,21 +31,18 @@ class ProfileScreen extends ConsumerWidget {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: AppColor.primary,
-                    child: user.profileImageUrl != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.network(
-                              user.profileImageUrl!,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : Icon(
-                            Icons.person,
-                            size: 50,
-                            color: Colors.white,
-                          ),
+                    child:
+                        user.profileImageUrl != null
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                user.profileImageUrl!,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                            : Icon(Icons.person, size: 50, color: Colors.white),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -132,30 +126,18 @@ class ProfileScreen extends ConsumerWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(
-        icon,
-        color: AppColor.primary,
-      ),
+      leading: Icon(icon, color: AppColor.primary),
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
-      trailing: const Icon(
-        Icons.chevron_right,
-        color: AppColor.textSecondary,
-      ),
+      trailing: const Icon(Icons.chevron_right, color: AppColor.textSecondary),
       onTap: onTap,
     );
   }
 
   Widget _buildDivider() {
-    return const Divider(
-      color: AppColor.divider,
-      height: 1,
-    );
+    return const Divider(color: AppColor.divider, height: 1);
   }
 
   Widget _buildNotificationToggle(BuildContext context) {
@@ -164,17 +146,11 @@ class ProfileScreen extends ConsumerWidget {
         return SwitchListTile(
           title: const Text(
             'Notifications',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           value: true, // Replace with actual notification state
           activeColor: AppColor.primary,
-          secondary: const Icon(
-            Icons.notifications,
-            color: AppColor.primary,
-          ),
+          secondary: const Icon(Icons.notifications, color: AppColor.primary),
           onChanged: (value) {
             // Toggle notification state
             setState(() {
@@ -189,23 +165,24 @@ class ProfileScreen extends ConsumerWidget {
   void _showSignOutDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Sign Out'),
-        content: const Text('Are you sure you want to sign out?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Sign Out'),
+            content: const Text('Are you sure you want to sign out?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  ref.read(mainProvider.notifier).signOut();
+                },
+                child: const Text('Sign Out'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ref.read(mainProvider.notifier).signOut();
-            },
-            child: const Text('Sign Out'),
-          ),
-        ],
-      ),
     );
   }
 

@@ -53,7 +53,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              
+
               // Content
               Expanded(
                 child: ListView(
@@ -63,7 +63,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                     // Profile header
                     _buildProfileHeader(context),
                     const SizedBox(height: 20),
-                    
+
                     // Contact information
                     _buildSectionTitle('Contact Information'),
                     _buildContactItem(
@@ -100,9 +100,10 @@ class ServiceProviderProfileModal extends StatelessWidget {
                         onTap: () => _openUrl(website!),
                         onLongPress: () => _copyToClipboard(context, website!),
                       ),
-                    
+
                     // Social media links
-                    if (socialMediaLinks != null && socialMediaLinks!.isNotEmpty) ...[
+                    if (socialMediaLinks != null &&
+                        socialMediaLinks!.isNotEmpty) ...[
                       const SizedBox(height: 20),
                       _buildSectionTitle('Social Media'),
                       ...socialMediaLinks!.entries.map((entry) {
@@ -123,18 +124,19 @@ class ServiceProviderProfileModal extends StatelessWidget {
                           default:
                             icon = Icons.link;
                         }
-                        
+
                         return _buildContactItem(
                           context,
                           icon: icon,
                           title: entry.key,
                           value: entry.value,
                           onTap: () => _openUrl(entry.value),
-                          onLongPress: () => _copyToClipboard(context, entry.value),
+                          onLongPress:
+                              () => _copyToClipboard(context, entry.value),
                         );
                       }).toList(),
                     ],
-                    
+
                     // Services
                     if (services != null && services!.isNotEmpty) ...[
                       const SizedBox(height: 20),
@@ -147,7 +149,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                         );
                       }).toList(),
                     ],
-                    
+
                     // Notes
                     if (notes != null && notes!.isNotEmpty) ...[
                       const SizedBox(height: 20),
@@ -161,7 +163,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                         child: Text(notes!),
                       ),
                     ],
-                    
+
                     const SizedBox(height: 30),
                   ],
                 ),
@@ -180,28 +182,23 @@ class ServiceProviderProfileModal extends StatelessWidget {
         CircleAvatar(
           radius: 50,
           backgroundColor: AppColor.primary.withOpacity(0.1),
-          backgroundImage: profileImageUrl != null ? NetworkImage(profileImageUrl!) : null,
-          child: profileImageUrl == null
-              ? Icon(
-                  Icons.person,
-                  size: 50,
-                  color: AppColor.primary,
-                )
-              : null,
+          backgroundImage:
+              profileImageUrl != null ? NetworkImage(profileImageUrl!) : null,
+          child:
+              profileImageUrl == null
+                  ? Icon(Icons.person, size: 50, color: AppColor.primary)
+                  : null,
         ),
         const SizedBox(height: 15),
-        
+
         // Name
         Text(
           name,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 5),
-        
+
         // Role
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -256,10 +253,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                 color: AppColor.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                color: AppColor.primary,
-              ),
+              child: Icon(icon, color: AppColor.primary),
             ),
             const SizedBox(width: 15),
             Expanded(
@@ -284,11 +278,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
               ),
             ),
             if (onTap != null)
-              Icon(
-                _getActionIcon(title),
-                color: AppColor.primary,
-                size: 20,
-              ),
+              Icon(_getActionIcon(title), color: AppColor.primary, size: 20),
           ],
         ),
       ),
@@ -342,7 +332,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${price.toStringAsFixed(2)}',
+                '\BHD${price.toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -391,7 +381,7 @@ class ServiceProviderProfileModal extends StatelessWidget {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'https://$url';
     }
-    
+
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);

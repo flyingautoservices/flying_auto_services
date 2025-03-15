@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/main_provider.dart';
 import '../../utils/app_colors.dart';
+import '../../widgets/custom_app_bar.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});
@@ -38,6 +39,11 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      appBar: const CustomAppBar(
+        showLogo: true,
+        centerTitle: true,
+        actions: [],
+      ),
       body: SingleChildScrollView(
         child: Container(
           height: size.height,
@@ -53,20 +59,8 @@ class _AuthPageState extends ConsumerState<AuthPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo
-                Container(
-                  width: size.width * 0.6,
-                  height: size.width * 0.45,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF000727),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.white, width: 2),
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logofull.png'),
-                  ),
-                ),
-                const SizedBox(height: 40),
+                // We've removed the logo container since we're using the app bar
+                const SizedBox(height: 30),
 
                 // Form fields
                 if (authState.isOtpSent)

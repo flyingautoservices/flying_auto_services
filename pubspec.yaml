@@ -52,10 +52,12 @@ dependencies:
   
   # Utils
   image_picker: ^1.0.7
+  flutter_image_compress: ^2.1.0
   shared_preferences: ^2.2.2
   flutter_secure_storage: ^9.0.0
   uuid: ^4.3.3
   restart_app: ^1.2.1
+  multi_select_flutter: ^4.1.3
 
 dev_dependencies:
   flutter_test:
